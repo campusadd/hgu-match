@@ -11,7 +11,7 @@ window.MATCH_CONFIG = {
   // 「◎ぜひ面接してほしい」を選べる上限（管理表のスクリプトの MAX_TOP と同じ数にする）
   maxTop: 3,
 
-  // 企業カード。photo は photos フォルダに入れたファイル名（DAY２で撮影後に入れる）
+  // 企業カード。photo は photos フォルダ、logo は logos フォルダに入れたファイル名（logo が空なら出さない）
   // 【要確認】の所は、社内で確認してから書き換えてください
   companies: [
     {
@@ -24,7 +24,7 @@ window.MATCH_CONFIG = {
       jobs: ["施工管理"]
     },
     {
-      id: "daishin", name: "ダイシン設計", kana: "だいしんせっけい",
+      id: "daishin", logo: "daishin.png", name: "ダイシン設計", kana: "だいしんせっけい",
       type: "建設コンサルタント", place: "札幌",
       day1: "第1部", day2: "第1部",
       photo: "", people: "",
@@ -33,7 +33,7 @@ window.MATCH_CONFIG = {
       jobs: ["設計"]
     },
     {
-      id: "nihonkoatsu", name: "日本高圧コンクリート", kana: "にほんこうあつこんくりーと",
+      id: "nihonkoatsu", logo: "nihonkoatsu.jpg", name: "日本高圧コンクリート", kana: "にほんこうあつこんくりーと",
       type: "橋梁・コンクリート製品", place: "札幌（さっぽろ駅すぐ）",
       day1: "第2部", day2: "第1部",
       photo: "", people: "",
@@ -42,7 +42,7 @@ window.MATCH_CONFIG = {
       jobs: ["設計", "施工管理", "製造管理", "営業"]
     },
     {
-      id: "doro", name: "道路工業", kana: "どうろこうぎょう",
+      id: "doro", logo: "doro.png", name: "道路工業", kana: "どうろこうぎょう",
       type: "道路・舗装", place: "札幌（全道21拠点）",
       day1: "第1部", day2: "第1部",
       photo: "", people: "",
@@ -60,7 +60,7 @@ window.MATCH_CONFIG = {
       jobs: ["施工管理"]
     },
     {
-      id: "dps", name: "ドーピー建設工業", kana: "どーぴーけんせつこうぎょう",
+      id: "dps", logo: "dps.png", name: "ドーピー建設工業", kana: "どーぴーけんせつこうぎょう",
       type: "橋梁（PC橋）", place: "札幌・東京",
       day1: "第1部", day2: "第2部",
       photo: "", people: "",
@@ -69,7 +69,7 @@ window.MATCH_CONFIG = {
       jobs: ["施工管理", "製造管理"]
     },
     {
-      id: "zukosha", name: "ズコーシャ", kana: "ずこーしゃ",
+      id: "zukosha", logo: "zukosha.png", name: "ズコーシャ", kana: "ずこーしゃ",
       type: "建設コンサルタント×IT", place: "帯広本社／札幌支社",
       day1: "第2部", day2: "第2部",
       photo: "", people: "",

@@ -91,6 +91,8 @@ button,input,textarea{font:inherit;color:inherit}
 .photo .ph b{font-size:44px;line-height:1;color:var(--line);font-weight:800}
 .photo .letter{position:absolute;left:10px;top:10px;background:color-mix(in srgb,var(--surface) 88%,transparent);border-radius:999px;padding:2px 10px;font-size:11.5px;font-weight:700;color:var(--muted)}
 .body{padding:14px 16px 16px;display:grid;gap:10px}
+.logo{background:#fff;border-radius:8px;padding:6px 10px;justify-self:start;max-width:100%}
+.logo img{display:block;height:26px;max-width:100%;object-fit:contain}
 .name{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
 .name h3{font-size:21px;font-weight:800}
 .name .type{font-size:12px;color:var(--accent);font-weight:700;background:var(--accent-soft);border-radius:6px;padding:1px 8px}
@@ -198,9 +200,9 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
     <div class="big" aria-hidden="true">✓</div>
     <h2 id="doneTitle">送信しました</h2>
     <p>回答ありがとうございました。<br>当日の面接の組み合わせは、後日LINEでお知らせします。</p>
-    <p class="small" id="doneLine" hidden>LINEに受付の確認を送りました。</p>
+    <p class="small" id="doneLine" hidden>LINEに受付完了のお知らせを送りました。</p>
     <p class="small" id="doneFriend" hidden>Campus Add のLINEを友だち追加しておくと、組み合わせのお知らせが届きます。</p>
-    <button class="btn ghost" type="button" id="again">回答を見直す・変更する</button>
+    <p class="small">回答を変更したいときは、Campus Add のLINEでご連絡ください。</p>
   </section>
 </main>
 
@@ -257,6 +259,7 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
     return `<article class="card" id="co-${esc(c.id)}" data-id="${esc(c.id)}">
       <div class="photo">${photo}${seen?`<span class="letter">${esc(seen)}</span>`:""}</div>
       <div class="body">
+        ${c.logo ? `<div class="logo"><img src="logos/${esc(c.logo)}" alt="${esc(c.name)}"></div>` : ""}
         <div class="name"><h3>${esc(c.name)}</h3><span class="type">${esc(c.type||"")}</span></div>
         <div class="meta">${c.place?`<span>拠点 <b>${esc(c.place)}</b></span>`:""}${c.people?`<span>担当 <b>${esc(c.people)}</b></span>`:""}</div>
         <p class="what">${esc(c.what||"")}</p>
@@ -372,12 +375,13 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
     try{
       if(DEMO) throw new Error("（お試し表示のため、送信先がありません）");
       const r = await post({action:"answer", name:$("name").value.trim(), levels:state.level, comment:$("comment").value.trim()});
+      if(r && r.answered){ clear(); $("confirm").close(); showAnswered(); return; }
       if(!r || !r.ok) throw new Error(r && r.error ? r.error : "");
       clear();
       $("confirm").close();
       $("form").hidden = true; $("dock").hidden = true; $("prev").hidden = true;
       document.querySelectorAll(".how,.note,.legend").forEach(e=>e.hidden=true);
-      $("doneTitle").textContent = r.updated ? "回答を変更しました" : "送信しました";
+      $("doneTitle").textContent = "送信しました";
       $("doneLine").hidden = !r.lined;
       $("doneFriend").hidden = r.lined || FRIEND;
       $("done").hidden = false; window.scrollTo({top:0});
@@ -387,6 +391,14 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
     }finally{
       btn.disabled = false; btn.textContent = "送信する";
     }
+  }
+
+  function showAnswered(){
+    $("form").hidden = true; $("dock").hidden = true; $("prev").hidden = true;
+    document.querySelectorAll(".how,.note,.legend").forEach(e=>e.hidden=true);
+    $("doneTitle").textContent = "回答済みです";
+    $("doneLine").hidden = true; $("doneFriend").hidden = true;
+    $("done").hidden = false; window.scrollTo({top:0});
   }
 
   function showClosed(msg){
@@ -401,11 +413,6 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
     $("next").addEventListener("click", openConfirm);
     $("back").addEventListener("click", ()=>$("confirm").close());
     $("send").addEventListener("click", send);
-    $("again").addEventListener("click", ()=>{
-      $("done").hidden = true; $("form").hidden = false; $("dock").hidden = false;
-      document.querySelectorAll(".how,.note,.legend").forEach(e=>e.hidden=false);
-      window.scrollTo({top:0});
-    });
   }
 
   $("maxTopText").textContent = MAXTOP;
@@ -419,21 +426,9 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
       if(!r || !r.ok) throw new Error(r && r.error ? r.error : "");
       if(r.deadline){ $("dueText").textContent = r.deadline; $("due").hidden = false; }
       if(!r.open){ showClosed(r.reason ? r.reason + "ご協力ありがとうございました。" : ""); return; }
+      if(r.prev){ clear(); showAnswered(); return; }
       $("form").hidden = false; $("dock").hidden = false;
-      if(r.prev){
-        // 前に送った回答を表示（この端末の下書きより優先）
-        clear();
-        state.level = Object.assign({}, r.prev.levels || {});
-        $("prevAt").textContent = r.prev.at || "";
-        $("prev").hidden = false;
-        start();
-        $("name").value = r.prev.name || "";
-        $("comment").value = r.prev.comment || "";
-        refresh();
-        $("next").textContent = "変更を確認";
-      }else{
-        start();
-      }
+      start();
     }catch(e){
       $("loading").hidden = true;
       showClosed("読み込めませんでした。" + (e && e.message ? e.message : "") + " LINEからページを開き直してください。");
