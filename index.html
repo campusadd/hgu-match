@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>面接希望調査 11/21</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=M+PLUS+2:wght@400;500;700;800&display=swap">
+<style>
+/* ゼミ就活講座ページと同じ色（Campus Add の木の床・白い壁・ロゴの青と黄色） */
+:root{
+  --bg:#fbf8f1; --surface:#ffffff; --soft:#f3eee3; --ink:#333333; --muted:#6f6a62; --line:#e7e0d2;
+  --accent:#0a66b8; --accent-ink:#ffffff; --accent-soft:#e6f0fa;
+  --mark:#f2b705; --mark-soft:#fff3c7; --mark-ink:#7a5600;
+  --ok:#3f7f73; --ok-soft:#e3f0ec; --low:#8a8378; --low-soft:#efebe3; --danger:#c62828;
+  --f-body:"M PLUS 2","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;
+  --f-num:"Outfit","M PLUS 2",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#17150f; --surface:#211e17; --soft:#2a261d; --ink:#f1ede4; --muted:#b3ab9c; --line:#3a3428;
+  --accent:#5aa9ec; --accent-ink:#0c1a28; --accent-soft:#16283a;
+  --mark:#f5c430; --mark-soft:#3a3016; --mark-ink:#f8dc8a;
+  --ok:#8fc4b9; --ok-soft:#1e3330; --low:#a59d90; --low-soft:#2c2820; --danger:#ff8a80; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#17150f; --surface:#211e17; --soft:#2a261d; --ink:#f1ede4; --muted:#b3ab9c; --line:#3a3428;
+  --accent:#5aa9ec; --accent-ink:#0c1a28; --accent-soft:#16283a;
+  --mark:#f5c430; --mark-soft:#3a3016; --mark-ink:#f8dc8a;
+  --ok:#8fc4b9; --ok-soft:#1e3330; --low:#a59d90; --low-soft:#2c2820; --danger:#ff8a80; color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;font-weight:500;line-height:1.75;letter-spacing:.02em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:16px 16px calc(96px + env(safe-area-inset-bottom,0px))}
+h1,h2,h3{margin:0;line-height:1.35;text-wrap:balance}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--mark);outline-offset:2px;border-radius:6px}
+
+/* ヘッダー */
+.brand{width:150px;height:26px;overflow:hidden;background:#fff;border-radius:6px;box-sizing:content-box;padding:6px 10px;margin:4px auto 0}
+.brand img{display:block;width:185px;height:61px;max-width:none;margin:-17px 0 0 -17px}
+.hero{text-align:center;padding:18px 0 6px;display:grid;gap:10px;justify-items:center}
+.hero .ev{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.hero h1{font-size:clamp(26px,7.4vw,36px);font-weight:800;letter-spacing:.04em}
+.hero h1 .sub{display:block;font-size:.55em;font-weight:700;letter-spacing:.06em;margin-bottom:4px}
+.hero h1{word-break:keep-all;overflow-wrap:anywhere}
+.hero h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--mark-soft) 62%)}
+.hero p{margin:0;color:var(--muted);font-size:14px;max-width:30em}
+.due{display:inline-flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 14px;font-size:13px;font-weight:700}
+.due b{font-family:var(--f-num);color:var(--danger)}
+
+/* 進め方 */
+.how{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.how li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;font-size:12.5px;font-weight:700;line-height:1.5}
+.how li span{display:block;font-family:var(--f-num);color:var(--accent);font-size:11px;letter-spacing:.1em}
+.note{margin:12px 0 0;background:var(--mark-soft);color:var(--mark-ink);border-radius:12px;padding:12px 14px;font-size:13.5px;line-height:1.7}
+.note strong{font-weight:800}
+
+/* 3段階の見本 */
+.legend{display:grid;gap:6px;margin:14px 0 0;font-size:13px}
+.legend div{display:flex;gap:10px;align-items:center}
+.lv{flex:none;display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;font-weight:800;font-size:15px}
+.lv.top{background:var(--mark);color:#3a2a00}
+.lv.mid{background:var(--ok-soft);color:var(--ok)}
+.lv.low{background:var(--low-soft);color:var(--low)}
+
+/* 名前 */
+.field{margin:22px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.field label{display:block;font-weight:800;font-size:15px}
+.field label small{font-weight:500;color:var(--muted);font-size:12px;margin-left:6px}
+.req{display:inline-block;background:var(--danger);color:#fff;font-size:11px;border-radius:4px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.field input,.field textarea{width:100%;margin-top:8px;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 12px;font-size:16px}
+.field textarea{min-height:88px;resize:vertical}
+
+/* 企業カード */
+.sec{display:flex;justify-content:space-between;align-items:baseline;margin:28px 0 10px}
+.sec h2{font-size:18px}
+.sec span{font-size:12px;color:var(--muted)}
+.cards{display:grid;gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;scroll-margin-top:72px;transition:border-color .2s,box-shadow .2s}
+.card.is-top{border-color:var(--mark);box-shadow:0 0 0 2px var(--mark-soft)}
+.card.is-missing{border-color:var(--danger)}
+.photo{position:relative;aspect-ratio:4/3;background:var(--soft);display:grid;place-items:center;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo .ph{display:grid;gap:4px;justify-items:center;color:var(--muted);font-size:12px;text-align:center;padding:12px}
+.photo .ph b{font-size:44px;line-height:1;color:var(--line);font-weight:800}
+.photo .letter{position:absolute;left:10px;top:10px;background:color-mix(in srgb,var(--surface) 88%,transparent);border-radius:999px;padding:2px 10px;font-size:11.5px;font-weight:700;color:var(--muted)}
+.body{padding:14px 16px 16px;display:grid;gap:10px}
+.name{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.name h3{font-size:21px;font-weight:800}
+.name .type{font-size:12px;color:var(--accent);font-weight:700;background:var(--accent-soft);border-radius:6px;padding:1px 8px}
+.meta{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:700}
+.what{margin:0;font-size:14.5px}
+.talk{margin:0;padding:10px 12px;background:var(--soft);border-radius:10px;font-size:13.5px;line-height:1.65}
+.talk p{margin:0 0 4px;font-size:11.5px;font-weight:800;color:var(--muted);letter-spacing:.06em}
+.talk ul{margin:0;padding-left:1.1em}
+.jobs{display:flex;flex-wrap:wrap;gap:6px;font-size:12px}
+.jobs span{border:1px solid var(--line);border-radius:999px;padding:1px 10px}
+.jobs em{font-style:normal;color:var(--muted);margin-right:2px}
+
+/* 3段階ボタン */
+.pick{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:4px}
+.pick button{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:8px 4px;cursor:pointer;display:grid;gap:2px;justify-items:center;font-size:12px;font-weight:700;line-height:1.35;min-height:64px;transition:background .15s,border-color .15s}
+.pick button .lv{width:26px;height:26px;font-size:14px}
+.pick button[aria-pressed="true"][data-v="top"]{background:var(--mark-soft);border-color:var(--mark);color:var(--mark-ink)}
+.pick button[aria-pressed="true"][data-v="mid"]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.pick button[aria-pressed="true"][data-v="low"]{background:var(--low-soft);border-color:var(--low);color:var(--ink)}
+.pick button:disabled{opacity:.4;cursor:not-allowed}
+.why{display:grid;gap:6px}
+.why label{font-size:12.5px;font-weight:700;color:var(--muted)}
+.why textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 10px;font-size:15px;min-height:64px;resize:vertical}
+.limit{font-size:12px;color:var(--mark-ink);background:var(--mark-soft);border-radius:8px;padding:6px 10px}
+
+/* 下の固定バー */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:10;background:color-mix(in srgb,var(--surface) 94%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+.dock .in{max-width:640px;margin:0 auto;display:flex;gap:12px;align-items:center}
+.prog{flex:1;min-width:0;font-size:12.5px;line-height:1.45}
+.prog .bar{height:6px;background:var(--soft);border-radius:99px;overflow:hidden;margin-top:4px}
+.prog .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.prog b{font-family:var(--f-num);font-size:15px}
+.btn{border:0;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-weight:800;padding:12px 18px;cursor:pointer;font-size:15px;white-space:nowrap}
+.btn.ghost{background:var(--soft);color:var(--ink)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* 確認・完了 */
+dialog{border:0;border-radius:18px;padding:0;width:min(560px,calc(100vw - 24px));max-height:calc(100dvh - 32px);background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+.dlg{padding:18px 18px 16px;display:grid;gap:12px}
+.dlg h2{font-size:18px}
+.sum{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.sum li{display:flex;gap:10px;align-items:flex-start;font-size:14px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.sum li small{display:block;color:var(--muted);font-size:12px}
+.dlg .row{display:flex;gap:8px;justify-content:flex-end}
+.err{color:var(--danger);font-size:13px;font-weight:700}
+.done{text-align:center;padding:48px 8px;display:grid;gap:12px;justify-items:center}
+.done .big{font-size:44px}
+.prev{margin:14px 0 0;background:var(--accent-soft);color:var(--accent);border-radius:12px;padding:10px 14px;font-size:13px;font-weight:700}
+.done .small{font-size:13px;color:var(--muted);margin:0}
+.closed{margin:24px 0 0;background:var(--soft);border-radius:14px;padding:18px;text-align:center;font-weight:700}
+.test{margin:10px 0 0;font-size:12px;color:var(--muted);text-align:center}
+@media (max-width:360px){.how{grid-template-columns:1fr}.pick button{font-size:11px}}
+</style>
+</head>
+<body>
+<main class="wrap" id="app">
+  <div class="brand"><img src="campus-add-logo.png" alt="Campus Add"></div>
+
+  <header class="hero">
+    <div class="ev">北海学園大学 工学部 特別就活サポートプログラム</div>
+    <h1><small class="sub">11/21（土）マッチングイベント</small><em>面接してほしい</em><wbr><em>企業</em>を選ぼう</h1>
+    <p>DAY１・DAY２で会った7社です。写真と話していた内容を見て、「特にこの企業と話したい」と思う企業を教えてください。</p>
+    <div class="due" id="due" hidden>回答締切 <b id="dueText"></b></div>
+  </header>
+
+  <ol class="how">
+    <li><span>STEP 1</span>カードを見て思い出す</li>
+    <li><span>STEP 2</span>7社すべてを3段階で選ぶ</li>
+    <li><span>STEP 3</span>確認して送信</li>
+  </ol>
+
+  <div class="note">
+    当日は<strong>7社すべてと模擬面接</strong>をします。そのうち2回は、時間を長くとった<strong>「じっくり面接」（30分）</strong>です。回答をもとに、<strong>「◎」の企業とは少なくとも1回、じっくり面接で話せるように</strong>組み合わせを決めます。<br>◎は<strong>2〜3社</strong>選ぶのがおすすめです。素直な気持ちで選んでください。
+  </div>
+
+  <div class="legend" aria-label="選び方">
+    <div><span class="lv top">◎</span><span><b>ぜひ面接してほしい</b>（2〜<span id="maxTopText">3</span>社がおすすめ）</span></div>
+    <div><span class="lv mid">○</span><span><b>話してみたい</b></span></div>
+    <div><span class="lv low">△</span><span><b>どちらでもない</b></span></div>
+  </div>
+
+  <div id="closed" class="closed" hidden>回答の受付は終了しました。ご協力ありがとうございました。</div>
+  <div id="loading" class="closed" hidden>読み込んでいます…</div>
+  <div id="prev" class="prev" hidden>前に送った回答を表示しています（<span id="prevAt"></span>）。変えたい所だけ直して、もう一度送ってください。</div>
+
+  <form id="form" novalidate>
+    <div class="field">
+      <label for="name">氏名<span class="req">必須</span><small>フルネームで</small></label>
+      <input id="name" name="name" autocomplete="name" placeholder="例）北海 太郎" required>
+    </div>
+
+    <div class="sec"><h2>参加企業（7社）</h2><span>上から順に見ていけばOK</span></div>
+    <div class="cards" id="cards"></div>
+
+    <div class="field">
+      <label for="comment">運営へのひと言<small>任意</small></label>
+      <textarea id="comment" name="comment" placeholder="面接で特に話したいこと、不安なことなど"></textarea>
+    </div>
+    <p class="test" id="testNote" hidden>（お試し表示：送信先がまだ設定されていません）</p>
+  </form>
+
+  <section class="done" id="done" hidden>
+    <div class="big" aria-hidden="true">✓</div>
+    <h2 id="doneTitle">送信しました</h2>
+    <p>回答ありがとうございました。<br>当日の面接の組み合わせは、後日LINEでお知らせします。</p>
+    <p class="small" id="doneLine" hidden>LINEに受付の確認を送りました。</p>
+    <p class="small" id="doneFriend" hidden>Campus Add のLINEを友だち追加しておくと、組み合わせのお知らせが届きます。</p>
+    <button class="btn ghost" type="button" id="again">回答を見直す・変更する</button>
+  </section>
+</main>
+
+<div class="dock" id="dock">
+  <div class="in">
+    <div class="prog">
+      <div><b id="cnt">0</b> / <span id="tot">7</span>社 選択済み　◎ <b id="topCnt">0</b>/<span id="topMax">3</span></div>
+      <div class="bar"><i id="barFill"></i></div>
+    </div>
+    <button class="btn" id="next" type="button">確認する</button>
+  </div>
+</div>
+
+<dialog id="confirm">
+  <div class="dlg">
+    <h2>この内容で送信しますか？</h2>
+    <div id="cName" style="font-weight:800"></div>
+    <ul class="sum" id="cList"></ul>
+    <div class="err" id="sendErr" hidden></div>
+    <div class="row">
+      <button class="btn ghost" type="button" id="back">戻って直す</button>
+      <button class="btn" type="button" id="send">送信する</button>
+    </div>
+  </div>
+</dialog>
+
+<script src="config.js"></script>
+<script>
+(function(){
+  "use strict";
+  const C = window.MATCH_CONFIG || {companies:[]};
+  const COS = C.companies || [];
+  const MAXTOP = C.maxTop || 3;
+  const LV = {top:{mark:"◎",label:"ぜひ面接してほしい"}, mid:{mark:"○",label:"話してみたい"}, low:{mark:"△",label:"どちらでもない"}};
+  const KEY = "match28sk-draft";
+  const $ = id => document.getElementById(id);
+  const state = {level:{}, reason:{}};
+
+  // 下書き（この端末だけに保存。使えないときは無視）
+  function load(){ try{ const d = JSON.parse(localStorage.getItem(KEY)||"null"); if(d){ Object.assign(state.level,d.level||{}); Object.assign(state.reason,d.reason||{}); $("name").value=d.name||""; $("comment").value=d.comment||""; } }catch(e){} }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify({level:state.level, reason:state.reason, name:$("name").value, comment:$("comment").value})); }catch(e){} }
+  function clear(){ try{ localStorage.removeItem(KEY); }catch(e){} }
+
+  const esc = s => String(s==null?"":s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+  function cardHtml(c, i){
+    const photo = c.photo
+      ? `<img src="photos/${esc(c.photo)}" alt="${esc(c.name)}の担当者の方" loading="lazy">`
+      : `<div class="ph"><b>${esc(c.name.slice(0,1))}</b>写真はDAY２のあとに入ります</div>`;
+    const seen = [c.day1 && `DAY１ ${c.day1}`, c.day2 && `DAY２ ${c.day2}`].filter(Boolean).join("／");
+    const jobs = (c.jobs||[]).length ? `<div class="jobs"><em>募集職種</em>${c.jobs.map(j=>`<span>${esc(j)}</span>`).join("")}</div>` : "";
+    const talk = (c.talk||[]).length ? `<div class="talk"><p>講座で話していたこと</p><ul>${c.talk.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>` : "";
+    const btns = Object.keys(LV).map(v=>`<button type="button" data-v="${v}" aria-pressed="false"><span class="lv ${v}">${LV[v].mark}</span>${LV[v].label}</button>`).join("");
+    return `<article class="card" id="co-${esc(c.id)}" data-id="${esc(c.id)}">
+      <div class="photo">${photo}${seen?`<span class="letter">${esc(seen)}</span>`:""}</div>
+      <div class="body">
+        <div class="name"><h3>${esc(c.name)}</h3><span class="type">${esc(c.type||"")}</span></div>
+        <div class="meta">${c.place?`<span>拠点 <b>${esc(c.place)}</b></span>`:""}${c.people?`<span>担当 <b>${esc(c.people)}</b></span>`:""}</div>
+        <p class="what">${esc(c.what||"")}</p>
+        ${talk}${jobs}
+        <div class="pick" role="group" aria-label="${esc(c.name)}への希望">${btns}</div>
+        <div class="limit" hidden>◎は${MAXTOP}社までです。ほかの◎を○に変えると選べます。</div>
+      </div>
+    </article>`;
+  }
+
+  function render(){
+    $("cards").innerHTML = COS.map(cardHtml).join("");
+    COS.forEach(c=>{
+      const el = $("co-"+c.id);
+      el.querySelectorAll(".pick button").forEach(b=>b.addEventListener("click", ()=>setLevel(c.id, b.dataset.v)));
+    });
+    refresh();
+  }
+
+  function setLevel(id, v){
+    state.level[id] = state.level[id]===v ? undefined : v;
+    if(!state.level[id]) delete state.level[id];
+    save(); refresh();
+    $("co-"+id).classList.remove("is-missing");
+  }
+
+  function refresh(){
+    const tops = Object.values(state.level).filter(v=>v==="top").length;
+    COS.forEach(c=>{
+      const el = $("co-"+c.id), v = state.level[c.id];
+      el.classList.toggle("is-top", v==="top");
+      el.querySelectorAll(".pick button").forEach(b=>{
+        b.setAttribute("aria-pressed", String(b.dataset.v===v));
+        b.disabled = b.dataset.v==="top" && v!=="top" && tops>=MAXTOP;
+      });
+      el.querySelector(".limit").hidden = !(v!=="top" && tops>=MAXTOP);
+    });
+    const n = Object.keys(state.level).length;
+    $("cnt").textContent = n; $("tot").textContent = COS.length;
+    $("topCnt").textContent = tops; $("topMax").textContent = MAXTOP;
+    $("barFill").style.width = (COS.length ? n/COS.length*100 : 0)+"%";
+  }
+
+  function check(){
+    const name = $("name").value.trim();
+    if(!name){ $("name").focus(); $("name").scrollIntoView({block:"center",behavior:"smooth"}); return "氏名を入力してください"; }
+    const miss = COS.filter(c=>!state.level[c.id]);
+    if(miss.length){
+      miss.forEach(c=>$("co-"+c.id).classList.add("is-missing"));
+      $("co-"+miss[0].id).scrollIntoView({block:"start",behavior:"smooth"});
+      return `まだ選んでいない企業があります（${miss.map(c=>c.name).join("、")}）`;
+    }
+    return "";
+  }
+
+  function toast(msg){
+    let t = $("toast");
+    if(!t){ t=document.createElement("div"); t.id="toast"; t.setAttribute("role","status");
+      t.style.cssText="position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:20;background:#333;color:#fff;border-radius:10px;padding:10px 14px;font-size:13px;max-width:calc(100vw - 32px);box-shadow:0 4px 16px rgba(0,0,0,.2)";
+      document.body.appendChild(t); }
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(t._h); t._h = setTimeout(()=>t.hidden=true, 3500);
+  }
+
+  function openConfirm(){
+    const err = check();
+    if(err){ toast(err); return; }
+    $("cName").textContent = $("name").value.trim() + " さん";
+    const order = {top:0, mid:1, low:2};
+    $("cList").innerHTML = COS.slice().sort((a,b)=>order[state.level[a.id]]-order[state.level[b.id]]).map(c=>{
+      const v = state.level[c.id];
+      return `<li><span class="lv ${v}">${LV[v].mark}</span><span>${esc(c.name)}</span></li>`;
+    }).join("");
+    $("sendErr").hidden = true;
+    $("confirm").showModal();
+  }
+
+  // ---- サーバー（管理表のスクリプト）とのやり取り ----
+  // apiUrl が空：お試しモード（送信はしない）
+  // liffId あり：LINEでログインし、IDトークンで本人を確認する
+  // liffId なし：端末ごとのIDで区別する（管理表の「テスト版」が「はい」のときだけ通る）
+  let ID_TOKEN = "", UID = "", FRIEND = true;
+  const DEMO = !C.apiUrl;
+  function deviceUid(){
+    try{ let u = localStorage.getItem("match28sk-uid"); if(!u){ u = "t_" + Math.random().toString(36).slice(2,10) + Date.now().toString(36); localStorage.setItem("match28sk-uid", u); } return u; }
+    catch(e){ return "t_" + Math.random().toString(36).slice(2,14); }
+  }
+  const who = () => ID_TOKEN ? {idToken:ID_TOKEN} : {uid:UID || (UID = deviceUid())};
+  function loadScript(src){ return new Promise((ok,ng)=>{ const s=document.createElement("script"); s.src=src; s.onload=ok; s.onerror=ng; document.head.appendChild(s); }); }
+  async function lineLogin(){
+    if(!C.liffId || DEMO) return true;
+    await loadScript("https://static.line-scdn.net/liff/edge/2/sdk.js");
+    await liff.init({liffId:C.liffId});
+    if(!liff.isLoggedIn()){ liff.login({redirectUri:location.href}); return false; }
+    ID_TOKEN = liff.getIDToken() || "";
+    try{ FRIEND = (await liff.getFriendship()).friendFlag; }catch(e){}
+    return true;
+  }
+  function relogin(){
+    let last = 0; try{ last = +sessionStorage.getItem("match28sk-relogin") || 0; }catch(e){}
+    if(Date.now() - last < 60e3 || !window.liff) return false;
+    try{ sessionStorage.setItem("match28sk-relogin", String(Date.now())); }catch(e){}
+    if(liff.isInClient()){ location.reload(); return true; }
+    try{ liff.logout(); }catch(e){}
+    liff.login({redirectUri:location.href});
+    return true;
+  }
+  const post = b => fetch(C.apiUrl, {method:"POST", body:JSON.stringify(Object.assign(b, who()))})
+    .then(r=>r.json()).then(r=>{ if(r && r.relogin && relogin()) return new Promise(()=>{}); return r; });
+
+  async function send(){
+    const btn = $("send"); btn.disabled = true; btn.textContent = "送信中…";
+    try{
+      if(DEMO) throw new Error("（お試し表示のため、送信先がありません）");
+      const r = await post({action:"answer", name:$("name").value.trim(), levels:state.level, comment:$("comment").value.trim()});
+      if(!r || !r.ok) throw new Error(r && r.error ? r.error : "");
+      clear();
+      $("confirm").close();
+      $("form").hidden = true; $("dock").hidden = true; $("prev").hidden = true;
+      document.querySelectorAll(".how,.note,.legend").forEach(e=>e.hidden=true);
+      $("doneTitle").textContent = r.updated ? "回答を変更しました" : "送信しました";
+      $("doneLine").hidden = !r.lined;
+      $("doneFriend").hidden = r.lined || FRIEND;
+      $("done").hidden = false; window.scrollTo({top:0});
+    }catch(e){
+      $("sendErr").textContent = "送信できませんでした。" + (e && e.message ? e.message : "電波の良い所でもう一度お試しください。");
+      $("sendErr").hidden = false;
+    }finally{
+      btn.disabled = false; btn.textContent = "送信する";
+    }
+  }
+
+  function showClosed(msg){
+    $("form").hidden = true; $("dock").hidden = true;
+    $("closed").textContent = msg || "回答の受付は終了しました。ご協力ありがとうございました。";
+    $("closed").hidden = false;
+  }
+
+  function start(){
+    load(); render();
+    ["name","comment"].forEach(id=>$(id).addEventListener("input", save));
+    $("next").addEventListener("click", openConfirm);
+    $("back").addEventListener("click", ()=>$("confirm").close());
+    $("send").addEventListener("click", send);
+    $("again").addEventListener("click", ()=>{
+      $("done").hidden = true; $("form").hidden = false; $("dock").hidden = false;
+      document.querySelectorAll(".how,.note,.legend").forEach(e=>e.hidden=false);
+      window.scrollTo({top:0});
+    });
+  }
+
+  $("maxTopText").textContent = MAXTOP;
+  (async function init(){
+    if(DEMO){ $("testNote").hidden = false; start(); return; }
+    $("loading").hidden = false; $("form").hidden = true; $("dock").hidden = true;
+    try{
+      if(!(await lineLogin())) return;
+      const r = await post({action:"me"});
+      $("loading").hidden = true;
+      if(!r || !r.ok) throw new Error(r && r.error ? r.error : "");
+      if(r.deadline){ $("dueText").textContent = r.deadline; $("due").hidden = false; }
+      if(!r.open){ showClosed(r.reason ? r.reason + "ご協力ありがとうございました。" : ""); return; }
+      $("form").hidden = false; $("dock").hidden = false;
+      if(r.prev){
+        // 前に送った回答を表示（この端末の下書きより優先）
+        clear();
+        state.level = Object.assign({}, r.prev.levels || {});
+        $("prevAt").textContent = r.prev.at || "";
+        $("prev").hidden = false;
+        start();
+        $("name").value = r.prev.name || "";
+        $("comment").value = r.prev.comment || "";
+        refresh();
+        $("next").textContent = "変更を確認";
+      }else{
+        start();
+      }
+    }catch(e){
+      $("loading").hidden = true;
+      showClosed("読み込めませんでした。" + (e && e.message ? e.message : "") + " LINEからページを開き直してください。");
+    }
+  })();
+})();
+</script>
+</body>
+</html>
