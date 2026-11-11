@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>面接希望調査 11/21</title>
+<title>模擬面接会 希望調査</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -155,16 +155,10 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 
   <header class="hero">
     <div class="ev">北海学園大学 工学部 特別就活サポートプログラム</div>
-    <h1><small class="sub">11/21（土）マッチングイベント</small><em>面接してほしい</em><wbr><em>企業</em>を選ぼう</h1>
-    <p>DAY１・DAY２で会った7社です。写真と話していた内容を見て、「特にこの企業と話したい」と思う企業を教えてください。</p>
+    <h1><small class="sub">11/21（土）模擬面接会（マッチングイベント）</small><em>模擬面接</em>の<wbr>希望調査</h1>
+    <p>2日間、皆さんの就活サポートに協力してくれた企業7社です。プログラム最終日で「特にこの企業と話したい」「模擬面接をお願いしたい」と思う企業について回答してください。<br>なお、講座の様子の写真や会社概要もしっかり確認した上で回答するようにしてください。</p>
     <div class="due" id="due" hidden>回答締切 <b id="dueText"></b></div>
   </header>
-
-  <ol class="how">
-    <li><span>STEP 1</span>カードを見て思い出す</li>
-    <li><span>STEP 2</span>7社すべてを3段階で選ぶ</li>
-    <li><span>STEP 3</span>確認して送信</li>
-  </ol>
 
   <div class="note">
     当日は<strong>7社すべてと模擬面接</strong>をします。そのうち2回は、時間を長くとった<strong>「じっくり面接」（30分）</strong>です。回答をもとに、<strong>「◎」の企業とは少なくとも1回、じっくり面接で話せるように</strong>組み合わせを決めます。<br>◎は<strong>2〜3社</strong>選ぶのがおすすめです。素直な気持ちで選んでください。
@@ -188,11 +182,6 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 
     <div class="sec"><h2>参加企業（7社）</h2><span>上から順に見ていけばOK</span></div>
     <div class="cards" id="cards"></div>
-
-    <div class="field">
-      <label for="comment">運営へのひと言<small>任意</small></label>
-      <textarea id="comment" name="comment" placeholder="面接で特に話したいこと、不安なことなど"></textarea>
-    </div>
     <p class="test" id="testNote" hidden>（お試し表示：送信先がまだ設定されていません）</p>
   </form>
 
@@ -242,8 +231,8 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
   const state = {level:{}, reason:{}};
 
   // 下書き（この端末だけに保存。使えないときは無視）
-  function load(){ try{ const d = JSON.parse(localStorage.getItem(KEY)||"null"); if(d){ Object.assign(state.level,d.level||{}); Object.assign(state.reason,d.reason||{}); $("name").value=d.name||""; $("comment").value=d.comment||""; } }catch(e){} }
-  function save(){ try{ localStorage.setItem(KEY, JSON.stringify({level:state.level, reason:state.reason, name:$("name").value, comment:$("comment").value})); }catch(e){} }
+  function load(){ try{ const d = JSON.parse(localStorage.getItem(KEY)||"null"); if(d){ Object.assign(state.level,d.level||{}); Object.assign(state.reason,d.reason||{}); $("name").value=d.name||""; } }catch(e){} }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify({level:state.level, reason:state.reason, name:$("name").value})); }catch(e){} }
   function clear(){ try{ localStorage.removeItem(KEY); }catch(e){} }
 
   const esc = s => String(s==null?"":s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -374,13 +363,13 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
     const btn = $("send"); btn.disabled = true; btn.textContent = "送信中…";
     try{
       if(DEMO) throw new Error("（お試し表示のため、送信先がありません）");
-      const r = await post({action:"answer", name:$("name").value.trim(), levels:state.level, comment:$("comment").value.trim()});
+      const r = await post({action:"answer", name:$("name").value.trim(), levels:state.level});
       if(r && r.answered){ clear(); $("confirm").close(); showAnswered(); return; }
       if(!r || !r.ok) throw new Error(r && r.error ? r.error : "");
       clear();
       $("confirm").close();
       $("form").hidden = true; $("dock").hidden = true; $("prev").hidden = true;
-      document.querySelectorAll(".how,.note,.legend").forEach(e=>e.hidden=true);
+      document.querySelectorAll(".note,.legend").forEach(e=>e.hidden=true);
       $("doneTitle").textContent = "送信しました";
       $("doneLine").hidden = !r.lined;
       $("doneFriend").hidden = r.lined || FRIEND;
@@ -395,7 +384,7 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 
   function showAnswered(){
     $("form").hidden = true; $("dock").hidden = true; $("prev").hidden = true;
-    document.querySelectorAll(".how,.note,.legend").forEach(e=>e.hidden=true);
+    document.querySelectorAll(".note,.legend").forEach(e=>e.hidden=true);
     $("doneTitle").textContent = "回答済みです";
     $("doneLine").hidden = true; $("doneFriend").hidden = true;
     $("done").hidden = false; window.scrollTo({top:0});
@@ -409,7 +398,7 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 
   function start(){
     load(); render();
-    ["name","comment"].forEach(id=>$(id).addEventListener("input", save));
+    $("name").addEventListener("input", save);
     $("next").addEventListener("click", openConfirm);
     $("back").addEventListener("click", ()=>$("confirm").close());
     $("send").addEventListener("click", send);
