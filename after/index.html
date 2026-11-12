@@ -79,10 +79,17 @@ input[type=tel],input[type=email]{width:100%;border:1px solid var(--line);backgr
 .agree[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
 .agree[aria-pressed="true"] i{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
 .agree[aria-pressed="true"] i::after{content:"✓"}
+.day{display:grid;gap:6px;margin-top:4px}
+.day h3{font-size:14px;font-weight:800;margin:6px 0 0}
+.times{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.times button{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 2px;font-family:var(--f-num);font-weight:700;font-size:15px;cursor:pointer}
+.times button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.noslot{font-size:13px;color:var(--danger);font-weight:700}
 .err{color:var(--danger);font-size:13px;font-weight:700;margin:10px 0 0}
 .box{margin:24px 0 0;background:var(--soft);border-radius:14px;padding:18px;text-align:center;font-weight:700}
 .done{text-align:center;padding:48px 8px;display:grid;gap:12px;justify-items:center}
 .done .big{font-size:44px}
+.slotdone{margin:0;background:var(--accent-soft);color:var(--accent);border-radius:12px;padding:10px 16px;font-weight:800}
 .test{margin:10px 0 0;font-size:12px;color:var(--muted);text-align:center}
 </style>
 </head>
@@ -155,6 +162,12 @@ input[type=tel],input[type=email]{width:100%;border:1px solid var(--line);backgr
       </div>
     </section>
 
+    <section class="q" id="qSlot">
+      <h2><span>Q6</span>オファー結果のお電話の時間 <em class="req">必須</em></h2>
+      <p class="hint">オファー結果は、Campus Add からお電話でお伝えします（1人15分ほど）。電話に出られる時間を1つ選んでください。埋まった時間は表示されません。</p>
+      <div id="slots"></div>
+    </section>
+
     <p class="err" id="err" hidden></p>
     <button class="btn" id="send" type="button">送信する</button>
     <p class="test" id="testNote" hidden>（お試し表示：送信先がまだ設定されていません）</p>
@@ -163,7 +176,9 @@ input[type=tel],input[type=email]{width:100%;border:1px solid var(--line);backgr
   <section class="done" id="done" hidden>
     <div class="big" aria-hidden="true">✓</div>
     <h2 id="doneTitle">送信しました</h2>
-    <p>ご協力ありがとうございました。<br>オファー結果は、後日お電話でお伝えします。</p>
+    <p>ご協力ありがとうございました。</p>
+    <p class="slotdone" id="doneSlot" hidden></p>
+    <p style="font-size:13px;color:var(--muted);margin:0">都合が悪くなったときは、Campus Add のLINEでご連絡ください。</p>
   </section>
 </main>
 
@@ -180,7 +195,8 @@ input[type=tel],input[type=email]{width:100%;border:1px solid var(--line);backgr
   const SATIS = ["満足", "やや満足", "どちらでもない", "やや不満", "不満"];
   const $ = id => document.getElementById(id);
   const esc = s => String(s==null?"":s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const st = {best:"", satis:"", interest:{}, agree:false};
+  const st = {best:"", satis:"", interest:{}, agree:false, slot:""};
+  let SLOTS = [];
   let NEED_NAME = false;
 
   function opts(el, list, key){
@@ -235,6 +251,19 @@ input[type=tel],input[type=email]{width:100%;border:1px solid var(--line);backgr
   const post = b => fetch(C.apiUrl, {method:"POST", body:JSON.stringify(Object.assign(b, who()))})
     .then(r=>r.json()).then(r=>{ if(r && r.relogin && relogin()) return new Promise(()=>{}); return r; });
 
+  function renderSlots(){
+    const box = $("slots");
+    if(!SLOTS.length){ box.innerHTML = '<p class="noslot">選べる時間がありません。Campus Add のLINEでご連絡ください。</p>'; return; }
+    const days = {};
+    SLOTS.forEach(x=>{ const d = x.label.replace(/\s*\d{1,2}:\d{2}〜$/, ""); (days[d] = days[d] || []).push(x); });
+    box.innerHTML = Object.keys(days).map(d=>`<div class="day"><h3>${esc(d)}</h3><div class="times">${days[d].map(x=>`<button type="button" aria-pressed="${x.key===st.slot}" data-k="${esc(x.key)}">${esc(x.key.slice(-5))}</button>`).join("")}</div></div>`).join("");
+    box.querySelectorAll("button").forEach(b=>b.addEventListener("click", ()=>{
+      st.slot = b.dataset.k;
+      box.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed", String(x===b)));
+      $("qSlot").classList.remove("is-missing");
+    }));
+  }
+
   function check(){
     let first = null;
     const miss = (el, cond) => { el.classList.toggle("is-missing", cond); if(cond && !first) first = el; };
@@ -249,6 +278,7 @@ input[type=tel],input[type=email]{width:100%;border:1px solid var(--line);backgr
     miss($("qContact"), !telOk || !mailOk || !st.agree);
     if(first && first.id === "qContact" && !(telOk && mailOk)){ first.scrollIntoView({block:"start", behavior:"smooth"}); return !telOk ? "電話番号を確認してください（数字10〜11けた）" : "メールアドレスを確認してください"; }
     if(first && first.id === "qContact"){ first.scrollIntoView({block:"start", behavior:"smooth"}); return "個人情報の提供への同意にチェックを入れてください"; }
+    miss($("qSlot"), !st.slot);
     if(first){ first.scrollIntoView({block:"start", behavior:"smooth"}); return "まだ答えていない質問があります（赤い枠の所）"; }
     return "";
   }
@@ -265,10 +295,12 @@ input[type=tel],input[type=email]{width:100%;border:1px solid var(--line);backgr
       if(DEMO) throw new Error("（お試し表示のため、送信先がありません）");
       const r = await post({action:"survey", name:$("name").value.trim(), best:st.best, bestWhy:$("bestWhy").value.trim(),
         interest:st.interest, satis:st.satis, satisWhy:$("satisWhy").value.trim(),
-        tel:$("tel").value.replace(/[^0-9]/g, ""), mail:$("mail").value.trim(), agree:st.agree});
+        tel:$("tel").value.replace(/[^0-9]/g, ""), mail:$("mail").value.trim(), agree:st.agree, slot:st.slot});
       if(r && r.answered){ showDone("回答済みです"); return; }
+      if(r && r.slotTaken){ SLOTS = r.slots || []; st.slot = ""; renderSlots(); $("qSlot").classList.add("is-missing"); $("qSlot").scrollIntoView({block:"start", behavior:"smooth"}); throw new Error(r.error); }
       if(!r || !r.ok) throw new Error(r && r.error ? r.error : "");
       showDone("送信しました");
+      if(r.slot){ $("doneSlot").textContent = "オファー結果のお電話：" + r.slot; $("doneSlot").hidden = false; }
     }catch(err){
       $("err").textContent = "送信できませんでした。" + (err && err.message ? err.message : "電波の良い所でもう一度お試しください。");
       $("err").hidden = false;
@@ -287,7 +319,9 @@ input[type=tel],input[type=email]{width:100%;border:1px solid var(--line);backgr
     e.target.value = d.length === 11 ? d.replace(/^(\d{3})(\d{4})(\d{0,4})$/, "$1-$2-$3") : d;
   });
   (async function init(){
-    if(DEMO){ $("testNote").hidden = false; NEED_NAME = true; $("qName").hidden = false; return; }
+    if(DEMO){ $("testNote").hidden = false; NEED_NAME = true; $("qName").hidden = false;
+      SLOTS = ["2026/11/26","2026/11/27"].flatMap(d=>["10:00","10:15","10:30","10:45","11:00","13:00","13:15","17:45"].map(t=>({key:d+" "+t, label:(d.endsWith("26")?"11/26（木）":"11/27（金）")+t+"〜"})));
+      renderSlots(); return; }
     $("loading").hidden = false; $("form").hidden = true;
     try{
       if(!(await lineLogin())) return;
@@ -297,6 +331,7 @@ input[type=tel],input[type=email]{width:100%;border:1px solid var(--line);backgr
       if(r.answered){ $("form").hidden = true; showDone("回答済みです"); return; }
       if(!r.open){ $("closed").textContent = r.reason || "アンケートの受付は終了しました。"; $("closed").hidden = false; return; }
       NEED_NAME = !r.name; $("qName").hidden = !NEED_NAME;
+      SLOTS = r.slots || []; renderSlots();
       $("form").hidden = false;
     }catch(err){
       $("loading").hidden = true;
