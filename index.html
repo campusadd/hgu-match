@@ -144,6 +144,16 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 .done .big{font-size:44px}
 .prev{margin:14px 0 0;background:var(--accent-soft);color:var(--accent);border-radius:12px;padding:10px 14px;font-size:13px;font-weight:700}
 .done .small{font-size:13px;color:var(--muted);margin:0}
+.agree-box{display:grid;gap:8px;font-size:13px;line-height:1.7}
+.agree-box p{margin:0}
+.agree-h{font-weight:800;font-size:14px}
+.t-note{font-size:12px;color:var(--muted)}
+.agree{display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface);font-weight:800;font-size:14.5px;cursor:pointer;text-align:left;margin-top:4px}
+.agree i{flex:none;width:20px;height:20px;border-radius:5px;border:2px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:14px;line-height:1}
+.agree[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.agree[aria-pressed="true"] i{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.agree[aria-pressed="true"] i::after{content:"✓"}
+#qAgree.is-missing{border-color:var(--danger)}
 .closed{margin:24px 0 0;background:var(--soft);border-radius:14px;padding:18px;text-align:center;font-weight:700}
 .test{margin:10px 0 0;font-size:12px;color:var(--muted);text-align:center}
 @media (max-width:360px){.how{grid-template-columns:1fr}.pick button{font-size:11px}}
@@ -161,7 +171,7 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
   </header>
 
   <div class="note">
-    当日は<strong>7社すべてと模擬面接</strong>をします。そのうち2回は、時間を長くとった<strong>「じっくり面接」（30分）</strong>です。回答をもとに、<strong>「◎」の企業とは少なくとも1回、じっくり面接で話せるように</strong>組み合わせを決めます。<br>◎は<strong>2〜3社</strong>選ぶのがおすすめです。素直な気持ちで選んでください。<br>※回答は、当日の組み合わせづくりと、参加企業との面接の準備に使います。
+    当日は<strong>7社すべてと模擬面接</strong>をします。そのうち2回は、時間を長くとった<strong>「じっくり模擬面接」（30分）</strong>です。回答をもとに、<strong>「◎」の企業とは少なくとも1回、じっくり模擬面接で話せるように</strong>組み合わせを決めます。<br>◎は<strong>2〜3社</strong>選ぶのがおすすめです。素直な気持ちで選んでください。
   </div>
 
   <div class="legend" aria-label="選び方">
@@ -182,13 +192,20 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 
     <div class="sec"><h2>参加企業（7社）</h2><span>上から順に見ていけばOK</span></div>
     <div class="cards" id="cards"></div>
+    <div class="field agree-box" id="qAgree">
+      <p class="agree-h">個人情報の取り扱いについて</p>
+      <p>株式会社エス・イー・ジャパンは、この希望調査でお預かりする氏名・回答内容・LINEのユーザー識別子を、当社のプライバシーポリシーに基づき、当日の模擬面接の組み合わせづくりと、参加企業との模擬面接の準備のために使います。</p>
+      <p>「◎」を付けた企業には、当日の模擬面接をより充実した時間にするため、あなたが◎を付けてくれたことを、お名前とあわせてお伝えします。○・△を付けたことは、企業には伝わりません。</p>
+      <p class="t-note">お問い合わせ：株式会社エス・イー・ジャパン　TEL 011-577-1396　MAIL info@sejapan.jp</p>
+      <button type="button" class="agree" id="agree" aria-pressed="false"><i></i>上記の個人情報の取り扱いに同意します</button>
+    </div>
     <p class="test" id="testNote" hidden>（お試し表示：送信先がまだ設定されていません）</p>
   </form>
 
   <section class="done" id="done" hidden>
     <div class="big" aria-hidden="true">✓</div>
     <h2 id="doneTitle">送信しました</h2>
-    <p>回答ありがとうございました。<br>当日の面接の組み合わせは、後日LINEでお知らせします。</p>
+    <p>回答ありがとうございました。<br>当日の模擬面接の組み合わせは、後日LINEでお知らせします。</p>
     <p class="small" id="doneLine" hidden>LINEに受付完了のお知らせを送りました。</p>
     <p class="small" id="doneFriend" hidden>Campus Add のLINEを友だち追加しておくと、組み合わせのお知らせが届きます。</p>
     <p class="small">回答を変更したいときは、Campus Add のLINEでご連絡ください。</p>
@@ -228,7 +245,7 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
   const LV = {top:{mark:"◎",label:"興味がある"}, mid:{mark:"○",label:"少し興味がある"}, low:{mark:"△",label:"どちらでもない"}};
   const KEY = "match28sk-draft";
   const $ = id => document.getElementById(id);
-  const state = {level:{}, reason:{}};
+  const state = {level:{}, reason:{}, agree:false};
 
   // 下書き（この端末だけに保存。使えないときは無視）
   function load(){ try{ const d = JSON.parse(localStorage.getItem(KEY)||"null"); if(d){ Object.assign(state.level,d.level||{}); Object.assign(state.reason,d.reason||{}); $("name").value=d.name||""; } }catch(e){} }
@@ -301,6 +318,7 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
       $("co-"+miss[0].id).scrollIntoView({block:"start",behavior:"smooth"});
       return `まだ選んでいない企業があります（${miss.map(c=>c.name).join("、")}）`;
     }
+    if(!state.agree){ $("qAgree").classList.add("is-missing"); $("qAgree").scrollIntoView({block:"center",behavior:"smooth"}); return "個人情報の取り扱いへの同意にチェックを入れてください"; }
     return "";
   }
 
@@ -363,7 +381,7 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
     const btn = $("send"); btn.disabled = true; btn.textContent = "送信中…";
     try{
       if(DEMO) throw new Error("（お試し表示のため、送信先がありません）");
-      const r = await post({action:"answer", name:$("name").value.trim(), levels:state.level});
+      const r = await post({action:"answer", name:$("name").value.trim(), levels:state.level, agree:state.agree});
       if(r && r.answered){ clear(); $("confirm").close(); showAnswered(); return; }
       if(!r || !r.ok) throw new Error(r && r.error ? r.error : "");
       clear();
@@ -400,6 +418,7 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
     load(); render();
     $("name").addEventListener("input", save);
     $("next").addEventListener("click", openConfirm);
+    $("agree").addEventListener("click", ()=>{ state.agree = !state.agree; $("agree").setAttribute("aria-pressed", String(state.agree)); $("qAgree").classList.remove("is-missing"); });
     $("back").addEventListener("click", ()=>$("confirm").close());
     $("send").addEventListener("click", send);
   }
