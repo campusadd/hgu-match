@@ -65,6 +65,20 @@ textarea{min-height:96px;resize:vertical}
 .co.is-missing .lv5 button{border-color:var(--danger)}
 .btn{border:0;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-weight:800;padding:14px 18px;cursor:pointer;font-size:16px;width:100%;margin-top:22px}
 .btn:disabled{opacity:.5;cursor:not-allowed}
+.lbl{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:-4px}
+input[type=tel],input[type=email]{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 12px;font-size:16px}
+.agree-box{background:var(--soft);border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.7;display:grid;gap:8px}
+.agree-box p{margin:0}
+.agree-h{font-weight:800;font-size:13.5px}
+.terms{max-height:240px;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.7;display:grid;gap:4px}
+.terms p{margin:0}
+.t-h{font-weight:800;margin-top:6px!important}
+.t-note{font-size:12px;color:var(--muted)}
+.agree{display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface);font-weight:800;font-size:14.5px;cursor:pointer;text-align:left}
+.agree i{flex:none;width:20px;height:20px;border-radius:5px;border:2px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:14px;line-height:1}
+.agree[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.agree[aria-pressed="true"] i{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.agree[aria-pressed="true"] i::after{content:"✓"}
 .err{color:var(--danger);font-size:13px;font-weight:700;margin:10px 0 0}
 .box{margin:24px 0 0;background:var(--soft);border-radius:14px;padding:18px;text-align:center;font-weight:700}
 .done{text-align:center;padding:48px 8px;display:grid;gap:12px;justify-items:center}
@@ -112,6 +126,35 @@ textarea{min-height:96px;resize:vertical}
       <textarea id="satisWhy" placeholder="感想や、そう感じた理由を自由に書いてください"></textarea>
     </section>
 
+    <section class="q" id="qContact">
+      <h2><span>Q5</span>連絡先 <em class="req">必須</em></h2>
+      <p class="hint">オファーを承諾した企業から、今後の選考やイベントのご案内を直接受け取るために使います。</p>
+      <label class="lbl" for="tel">電話番号（数字だけでOK）</label>
+      <input type="tel" id="tel" inputmode="numeric" autocomplete="tel" placeholder="例）09012345678">
+      <label class="lbl" for="mail">メールアドレス（ふだん見ているもの）</label>
+      <input type="email" id="mail" inputmode="email" autocomplete="email" placeholder="例）hokkai@example.com">
+      <div class="agree-box">
+        <p class="agree-h">個人情報の取り扱いについて</p>
+        <div class="terms" tabindex="0">
+          <p>株式会社エス・イー・ジャパン（以下「当社」）は、本アンケートでお預かりする個人情報を、当社の個人情報保護方針（プライバシーポリシー）に基づき、次のとおり取り扱います。</p>
+          <p class="t-h">1．お預かりする情報</p>
+          <p>氏名、電話番号、メールアドレス、アンケートの回答内容、LINEのユーザー識別子</p>
+          <p class="t-h">2．利用目的</p>
+          <p>（1）本プログラムの運営と、オファー結果などのご連絡<br>（2）オファーを承諾した企業への連絡先の提供（3．のとおり）<br>（3）参加企業への関心度の提供（4．のとおり）<br>（4）本プログラムの改善と、大学への実施報告（個人が特定できない形に集計して使用します）</p>
+          <p class="t-h">3．オファーを承諾した企業への提供</p>
+          <p>提供先：本プログラムの参加企業（<span id="coNames"></span>）のうち、あなたがオファーを承諾した企業のみ<br>提供する情報：氏名、大学名・学部学科、電話番号、メールアドレス<br>提供先での利用目的：選考、インターンシップ・イベント等のご案内のため、提供先の企業からあなたへ直接ご連絡すること<br>提供の時期：お電話でオファーの承諾を確認したあと、当社から提供します。<br>オファーを承諾しなかった企業には提供しません。</p>
+          <p class="t-h">4．参加企業への関心度の提供</p>
+          <p>Q2で「興味・関心がある」「やや興味・関心がある」と答えた企業に限り、オファーを検討する際の参考として、あなたの氏名と関心度をその企業に提供します。それ以外の回答は企業に提供しません。</p>
+          <p class="t-h">5．管理</p>
+          <p>お預かりした個人情報は、漏えい・滅失・き損の防止に努めて適切に管理し、利用目的を達成したあとは、速やかに削除します。</p>
+          <p class="t-h">6．お問い合わせ</p>
+          <p>ご自身の個人情報の開示・訂正・削除・利用停止などのご希望や、個人情報の取り扱いに関するご相談は、下記までご連絡ください。<br>株式会社エス・イー・ジャパン　個人情報保護に関するお問い合わせ窓口<br>TEL：011-577-1396　MAIL：info@sejapan.jp</p>
+        </div>
+        <p class="t-note">同意いただけない場合は、オファーを承諾しても企業へ連絡先をお渡しできません。迷うときは、Campus Add のLINEでご相談ください。</p>
+        <button type="button" class="agree" id="agree" aria-pressed="false"><i></i>上記の個人情報の取り扱いに同意します</button>
+      </div>
+    </section>
+
     <p class="err" id="err" hidden></p>
     <button class="btn" id="send" type="button">送信する</button>
     <p class="test" id="testNote" hidden>（お試し表示：送信先がまだ設定されていません）</p>
@@ -137,7 +180,7 @@ textarea{min-height:96px;resize:vertical}
   const SATIS = ["満足", "やや満足", "どちらでもない", "やや不満", "不満"];
   const $ = id => document.getElementById(id);
   const esc = s => String(s==null?"":s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const st = {best:"", satis:"", interest:{}};
+  const st = {best:"", satis:"", interest:{}, agree:false};
   let NEED_NAME = false;
 
   function opts(el, list, key){
@@ -201,6 +244,11 @@ textarea{min-height:96px;resize:vertical}
     miss($("qInterest"), !COS.every(c=>st.interest[c.id]));
     miss($("qSatis"), !st.satis);
     miss($("qSatisWhy"), !$("satisWhy").value.trim());
+    const telOk = /^0\d{9,10}$/.test($("tel").value.replace(/[^0-9]/g, ""));
+    const mailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("mail").value.trim());
+    miss($("qContact"), !telOk || !mailOk || !st.agree);
+    if(first && first.id === "qContact" && !(telOk && mailOk)){ first.scrollIntoView({block:"start", behavior:"smooth"}); return !telOk ? "電話番号を確認してください（数字10〜11けた）" : "メールアドレスを確認してください"; }
+    if(first && first.id === "qContact"){ first.scrollIntoView({block:"start", behavior:"smooth"}); return "個人情報の提供への同意にチェックを入れてください"; }
     if(first){ first.scrollIntoView({block:"start", behavior:"smooth"}); return "まだ答えていない質問があります（赤い枠の所）"; }
     return "";
   }
@@ -216,7 +264,8 @@ textarea{min-height:96px;resize:vertical}
     try{
       if(DEMO) throw new Error("（お試し表示のため、送信先がありません）");
       const r = await post({action:"survey", name:$("name").value.trim(), best:st.best, bestWhy:$("bestWhy").value.trim(),
-        interest:st.interest, satis:st.satis, satisWhy:$("satisWhy").value.trim()});
+        interest:st.interest, satis:st.satis, satisWhy:$("satisWhy").value.trim(),
+        tel:$("tel").value.replace(/[^0-9]/g, ""), mail:$("mail").value.trim(), agree:st.agree});
       if(r && r.answered){ showDone("回答済みです"); return; }
       if(!r || !r.ok) throw new Error(r && r.error ? r.error : "");
       showDone("送信しました");
@@ -230,6 +279,13 @@ textarea{min-height:96px;resize:vertical}
 
   render();
   $("send").addEventListener("click", send);
+  $("coNames").textContent = COS.map(c=>c.name).join("、");
+  $("agree").addEventListener("click", ()=>{ st.agree = !st.agree; $("agree").setAttribute("aria-pressed", String(st.agree)); });
+  // 電話番号：数字以外は消し、ハイフンを自動で付ける
+  $("tel").addEventListener("input", e=>{
+    const d = e.target.value.replace(/[^0-9]/g, "").slice(0, 11);
+    e.target.value = d.length === 11 ? d.replace(/^(\d{3})(\d{4})(\d{0,4})$/, "$1-$2-$3") : d;
+  });
   (async function init(){
     if(DEMO){ $("testNote").hidden = false; NEED_NAME = true; $("qName").hidden = false; return; }
     $("loading").hidden = false; $("form").hidden = true;
