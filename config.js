@@ -27,7 +27,7 @@ window.MATCH_CONFIG = {
       id: "daishin", logo: "daishin.png", name: "ダイシン設計", kana: "だいしんせっけい",
       type: "建設コンサルタント", place: "札幌",
       day1: "第1部", day2: "第1部",
-      photo: "", people: "",
+      photo: "daishin.jpg", people: "",
       what: "道路・橋・河川・上下水道などを、調査・設計・企画で支える建設コンサルタント。",
       talk: ["インフラづくりの「一番はじめ」を考える仕事", "土木設計・環境・地質調査・測量・建築設計まで", "キャッチコピーは「北の大地に安心を」"],
       jobs: ["技術系総合職"]
@@ -45,7 +45,7 @@ window.MATCH_CONFIG = {
       id: "doro", logo: "doro.png", name: "道路工業", kana: "どうろこうぎょう",
       type: "道路・舗装", place: "札幌（全道21拠点）",
       day1: "第1部", day2: "第1部",
-      photo: "", people: "",
+      photo: "doro.jpg", people: "",
       what: "道路の舗装や地盤改良、アスファルトの製造で、北海道の毎日の道を支える会社。",
       talk: ["「自分の成長が、街に残る」", "造るだけでなく、維持補修・除雪で守り続ける", "全道21拠点＋関東2拠点"],
       jobs: ["施工管理"]
