@@ -54,7 +54,7 @@ window.MATCH_CONFIG = {
       id: "iwakura", name: "岩倉建設", kana: "いわくらけんせつ",
       type: "総合建設（ゼネコン）", place: "札幌本社／苫小牧本店",
       day1: "第2部", day2: "第2部",
-      photo: "iwakura.jpg", pos: "70% 50%", people: "",
+      photo: "iwakura2.jpg", people: "",
       what: "道路・港湾・橋・河川の土木工事から建物まで手がける総合建設会社。",
       talk: ["Fビレッジの複合施設を単独で施工", "配属は札幌本社か苫小牧本店を希望できる", "関東で「転勤なし」の土木施工管理も"],
       jobs: ["施工管理"]
