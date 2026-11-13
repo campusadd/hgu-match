@@ -18,7 +18,7 @@ window.MATCH_CONFIG = {
       id: "hagiwara", name: "萩原建設工業", kana: "はぎわらけんせつこうぎょう",
       type: "総合建設（ゼネコン）", place: "十勝・帯広／札幌圏",
       day1: "第1部", day2: "第1部",
-      photo: "", people: "",
+      photo: "hagiwara.jpg", people: "",
       what: "十勝・帯広と札幌圏を拠点に、道路や建物などをつくる総合建設会社。",
       talk: ["ドローン測量やAIカメラで「スマートな現場」", "若手のうちから幅広い工種を任される", "新人は一人にならない。先輩が必ず隣にいる"],
       jobs: ["施工管理"]
@@ -36,7 +36,7 @@ window.MATCH_CONFIG = {
       id: "nihonkoatsu", logo: "nihonkoatsu.jpg", name: "日本高圧コンクリート", kana: "にほんこうあつこんくりーと",
       type: "橋梁・コンクリート製品", place: "札幌（さっぽろ駅すぐ）",
       day1: "第2部", day2: "第1部",
-      photo: "", people: "",
+      photo: "nihonkoatsu.jpg", people: "",
       what: "コンクリートの橋をつくり、コンクリート製品を自社で製造する会社。",
       talk: ["エスコンフィールドのスタンドの板の9割が同社製", "道内のコンクリート橋シェアNo.1", "設計と施工の「二刀流」。独身寮・食事補助あり"],
       jobs: ["設計", "施工管理"]
