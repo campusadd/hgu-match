@@ -235,12 +235,14 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
   </div>
 </dialog>
 
-<script src="config.js"></script>
+<script>document.write('<script src="config.js?v='+Date.now()+'"><\/script>')</script>
 <script>
 (function(){
   "use strict";
   const C = window.MATCH_CONFIG || {companies:[]};
-  const COS = C.companies || [];
+  // 企業の並び順は開くたびにランダム（上にある企業ほど選ばれやすい、を防ぐ）
+  const COS = (C.companies || []).slice();
+  for (let i = COS.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [COS[i], COS[j]] = [COS[j], COS[i]]; }
   const MAXTOP = C.maxTop || 3;
   const LV = {top:{mark:"◎",label:"興味がある"}, mid:{mark:"○",label:"少し興味がある"}, low:{mark:"△",label:"どちらでもない"}};
   const KEY = "match28sk-draft";
