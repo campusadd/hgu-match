@@ -258,7 +258,7 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 
   function cardHtml(c, i){
     const photo = c.photo
-      ? `<img src="photos/${esc(c.photo)}" alt="${esc(c.name)}の担当者の方" loading="lazy">`
+      ? `<img src="photos/${esc(c.photo)}" alt="${esc(c.name)}の担当者の方" loading="lazy"${c.pos?` style="object-position:${esc(c.pos)}"`:""}>`
       : `<div class="ph"><b>${esc(c.name.slice(0,1))}</b>写真はDAY２のあとに入ります</div>`;
     const seen = [c.day1 && `DAY１ ${c.day1}`, c.day2 && `DAY２ ${c.day2}`].filter(Boolean).join("／");
     const jobs = (c.jobs||[]).length ? `<div class="jobs"><em>メイン募集職種</em>${c.jobs.map(j=>`<span>${esc(j)}</span>`).join("")}</div>` : "";

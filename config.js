@@ -54,7 +54,7 @@ window.MATCH_CONFIG = {
       id: "iwakura", name: "岩倉建設", kana: "いわくらけんせつ",
       type: "総合建設（ゼネコン）", place: "札幌本社／苫小牧本店",
       day1: "第2部", day2: "第2部",
-      photo: "", people: "",
+      photo: "iwakura.jpg", pos: "70% 50%", people: "",
       what: "道路・港湾・橋・河川の土木工事から建物まで手がける総合建設会社。",
       talk: ["Fビレッジの複合施設を単独で施工", "配属は札幌本社か苫小牧本店を希望できる", "関東で「転勤なし」の土木施工管理も"],
       jobs: ["施工管理"]
@@ -63,7 +63,7 @@ window.MATCH_CONFIG = {
       id: "dps", logo: "dps.png", name: "ドーピー建設工業", kana: "どーぴーけんせつこうぎょう",
       type: "橋梁（PC橋）", place: "札幌・東京",
       day1: "第1部", day2: "第2部",
-      photo: "", people: "",
+      photo: "dps.jpg", people: "",
       what: "全国の橋の設計・施工・補修を行う、創立70年の橋梁会社。",
       talk: ["北陸新幹線や高速道路の橋も手がける", "このプログラムから6名が入社（内定含む）", "独身者は家賃の自己負担が月5,000円"],
       jobs: ["施工管理", "製造管理"]
@@ -72,7 +72,7 @@ window.MATCH_CONFIG = {
       id: "zukosha", logo: "zukosha.png", name: "ズコーシャ", kana: "ずこーしゃ",
       type: "建設コンサルタント×IT", place: "帯広本社／札幌支社",
       day1: "第2部", day2: "第2部",
-      photo: "", people: "",
+      photo: "zukosha.jpg", people: "",
       what: "測量から始まり、橋・道路・農業施設の設計や環境調査を行う会社。",
       talk: ["このプログラムから1名入社。先輩の話を紹介", "農業・環境・まちづくり×IT", "完全週休2日・フレックスタイム制"],
       jobs: ["建設コンサルタント"]
