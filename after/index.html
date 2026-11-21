@@ -43,8 +43,11 @@ button,input,textarea{font:inherit;color:inherit}
 .q.is-missing{border-color:var(--danger)}
 .q h2{font-size:16px;font-weight:800;display:flex;gap:8px;align-items:baseline}
 .q h2 span{font-family:var(--f-num);color:var(--accent);font-size:14px}
+.q h2 .qt,.q h2 .qt span{font-family:inherit;color:inherit;font-size:inherit}
+.q h2 .qt{min-width:0}
+.nw{white-space:nowrap}
 .q .hint{margin:-4px 0 0;font-size:12.5px;color:var(--muted)}
-.req{display:inline-block;background:var(--danger);color:#fff;font-size:11px;border-radius:4px;padding:0 6px;vertical-align:2px;font-weight:700}
+.req{flex:none;white-space:nowrap;display:inline-block;background:var(--danger);color:#fff;font-size:11px;border-radius:4px;padding:0 6px;vertical-align:2px;font-weight:700}
 .opts{display:grid;gap:8px}
 .opt{display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;background:var(--surface);font-weight:700;font-size:14.5px;text-align:left;width:100%}
 .opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
@@ -122,20 +125,20 @@ input[type=tel],input[type=email]{width:100%;border:1px solid var(--line);backgr
     </section>
 
     <section class="q" id="qBest">
-      <h2><span>Q1</span>3日間で最も役立ったと思うコンテンツ <em class="req">必須</em></h2>
+      <h2><span>Q1</span><span class="qt"><span class="nw">3日間で最も役立ったと</span><span class="nw">思うコンテンツ</span></span> <em class="req">必須</em></h2>
       <div class="opts" id="best"></div>
       <textarea id="bestWhy" placeholder="そう思った理由を教えてください"></textarea>
     </section>
 
     <section class="q" id="qFeel">
       <h2><span>Q2</span>就活に対する気持ちの変化 <em class="req">必須</em></h2>
-      <p class="hint">プログラムを受ける前と今、それぞれ近いものを選んでください。<br>1：とても不安　2：やや不安　3：どちらでもない　4：やや前向き　5：とても前向き</p>
+      <p class="hint">プログラムを受ける前と今、それぞれ近いものを選んでください。<br><span class="nw">1：とても不安</span>　<span class="nw">2：やや不安</span>　<span class="nw">3：どちらでもない</span>　<span class="nw">4：やや前向き</span>　<span class="nw">5：とても前向き</span></p>
       <div id="feel"></div>
     </section>
 
     <section class="q" id="qSkill">
-      <h2><span>Q3</span>スキルの変化（自分の感覚でOK） <em class="req">必須</em></h2>
-      <p class="hint">プログラムを受ける前と今、それぞれ近いものを選んでください。<br>1：できない　2：あまりできない　3：どちらでもない　4：まあできる　5：できる</p>
+      <h2><span>Q3</span><span class="qt"><span class="nw">スキルの変化</span><span class="nw">（自分の感覚でOK）</span></span> <em class="req">必須</em></h2>
+      <p class="hint">プログラムを受ける前と今、それぞれ近いものを選んでください。<br><span class="nw">1：できない</span>　<span class="nw">2：あまりできない</span>　<span class="nw">3：どちらでもない</span>　<span class="nw">4：まあできる</span>　<span class="nw">5：できる</span></p>
       <div id="skill"></div>
     </section>
 
